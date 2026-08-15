@@ -4,7 +4,8 @@ import { Product_page } from '../pages/productpage';
 test('search product and add to cart', async ({ page }) => {
   const productPage = new Product_page(page);
   await productPage.login_to_site("qa.user123@mailinator.com", "Engineer@09876");
-  await productPage.Search_and_add_product_to_cart("Health book");
+  await productPage.Search_Product("Health book");
+  await productPage.Add_product_to_cart();
   await productPage.verify_product_added_to_cart();
   await productPage.proceed_to_checkout();
   console.log("Product added to cart and checkout successful");
@@ -15,4 +16,11 @@ test('Verify_ordered_product', async({page}) => {
   await productPage.login_to_site("qa.user123@mailinator.com", "Engineer@09876");
   await productPage.verify_ordered_product();
   console.log("Product added to cart sucessfully")
+})
+
+test.only('Verify_Resent_Viewed', async({page}) => {
+  const productPage = new Product_page(page);
+  await productPage.login_to_site("qa.user123@mailinator.com", "Engineer@09876");
+  await productPage.Search_Product("Health Book");
+  await productPage.verify_Resent_Viewed("Health Book");
 })
